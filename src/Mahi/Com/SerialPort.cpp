@@ -64,7 +64,11 @@ void SerialPort::flush_RXTX() {
 }
 
 bool SerialPort::close() {
-    RS232_CloseComport(static_cast<int>(port_));
+    if (is_open())
+    {
+        RS232_CloseComport(static_cast<int>(port_));
+        is_open_ = false;
+    }
     return true;
 }
 
